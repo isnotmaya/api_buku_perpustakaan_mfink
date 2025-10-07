@@ -10,3 +10,4 @@ class Buku(Base):
     penerbit = Column(String(100))
     tahun = Column(Integer)
     isbn = Column(String(20), unique=True)
+    cover = Column(String(255))  # URL gambar cover buku
