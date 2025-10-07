@@ -13,9 +13,6 @@ app.register_blueprint(web)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    host = "0.0.0.0" if os.environ.get("RAILWAY_ENVIRONMENT") else "127.0.0.1"
-
-    # Mode lokal akan tampil di browser, Railway tidak
-    debug_mode = not os.environ.get("RAILWAY_ENVIRONMENT")
-
-    app.run(host=host, port=port, debug=debug_mode)
+    
+    # WAJIB pakai 0.0.0.0 agar Railway bisa mengakses aplikasi
+    app.run(host="0.0.0.0", port=port)
