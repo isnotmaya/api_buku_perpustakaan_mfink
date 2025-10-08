@@ -7,7 +7,13 @@ from controllers.Buku_Controllers import (
     delete_buku
 )
 
+# Definisikan blueprint dulu
 web = Blueprint("web", __name__)
+
+# Route untuk homepage / tes API
+@web.route('/')
+def index():
+    return "API Buku - Flask berjalan!"
 
 # Endpoint API CRUD Buku
 web.route("/buku", methods=["GET"])(get_all_buku)           # GET semua buku
