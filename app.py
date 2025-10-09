@@ -2,8 +2,29 @@ import os
 from flask import Flask
 from routes.web import web
 from config.database import Base, engine
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+# Aktifkan CORS (dapat dikonfigurasi via env CORS_ORIGINS)
+# Gunakan '*' untuk semua origin, atau daftar origin dipisah koma.
+origins_env = os.environ.get("CORS_ORIGINS", "*")
+if origins_env.strip() == "*":
+    allowed_origins = "*"
+else:
+    allowed_origins = [o.strip() for o in origins_env.split(",") if o.strip()]
+
+CORS(
+    app,
+    resources={
+        r"/*": {
+            "origins": allowed_origins,
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"],
+        }
+    },
+    supports_credentials=False,
+)
 
 # Buat tabel otomatis jika belum ada
 Base.metadata.create_all(bind=engine)
