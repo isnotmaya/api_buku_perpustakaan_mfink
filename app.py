@@ -20,10 +20,24 @@ CORS(
         r"/*": {
             "origins": allowed_origins,
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization"],
+            "allow_headers": [
+                "Content-Type",
+                "Authorization",
+                "X-Requested-With",
+                "Accept",
+                "Origin",
+                "Cache-Control",
+                "Pragma",
+            ],
+            "expose_headers": [
+                "Content-Type",
+                "Authorization",
+            ],
         }
     },
     supports_credentials=False,
+    send_wildcard=(allowed_origins == "*"),
+    max_age=86400,
 )
 
 # Buat tabel otomatis jika belum ada
